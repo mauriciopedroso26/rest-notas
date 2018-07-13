@@ -3,6 +3,8 @@ package br.edu.devmedia.rest;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.json.Json;
+import javax.json.JsonObject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -29,7 +31,7 @@ public class NotasService {
 	}
 	
 	@GET
-	@Path("/list")
+	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List <Nota> listarNotas(){
 		List<Nota> lista = null;
@@ -42,7 +44,7 @@ public class NotasService {
 	}
 	
 	@POST
-	@Path("/add")
+	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON + CHARSET_UTF8)
 	@Produces(MediaType.TEXT_PLAIN)
 	public String addNota(Nota nota) {
@@ -61,8 +63,8 @@ public class NotasService {
 	}
 	
 	@GET
-	@Path("/get/{id}")
-	@Consumes(MediaType.TEXT_PLAIN)
+	@Path("/{id}")
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Nota buscarPorId(@PathParam("id") int idNota) {
 		Nota nota = null;
@@ -71,6 +73,7 @@ public class NotasService {
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
+
 		return nota;
 	}
 	
@@ -92,7 +95,7 @@ public class NotasService {
 	}
 	
 	@DELETE
-	@Path("/delete/{id}")
+	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
 	public String editarNota(@PathParam("id") int idNota){
